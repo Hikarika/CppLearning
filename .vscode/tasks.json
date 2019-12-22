@@ -9,6 +9,8 @@
             "command": "D:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe",
             "args": [
                 "-g",
+                "-Wall",
+                "-std=c++11",
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
