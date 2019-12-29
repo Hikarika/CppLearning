@@ -2,9 +2,13 @@
 #include <cstdio>
 #include <fstream>
 #include <sstream>
-#define CONFIG_FILE "Lab_3\\CONFIG.txt"
+#define CONFIG_FILE "CONFIG.txt"
 
 using namespace std;
+
+//Name: 黄远涛, Student number: 20184986
+//Sorry, I personally don't think this code is so long that needs to separate to different files
+//so, template function is written here.
 
 //struct for config file, makes transportation easier
 struct config {

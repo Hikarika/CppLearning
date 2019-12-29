@@ -1,4 +1,4 @@
-Lab_3\\number.txt
+number.txt
 double
 256
-Lab_3\\output.txt
+output.txt

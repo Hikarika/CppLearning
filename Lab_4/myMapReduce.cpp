@@ -6,13 +6,15 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
+//Name: 黄远涛, Student number: 20184986
+
 #include <fstream>
 #include <iostream>
 #include <string>
 #include "Functions.h"
 #define MAPPERS_NUM 4
 #define REDUCERS_NUM 4
-#define INPUT_FILE "Lab_4\\files.dat"
+#define INPUT_FILE "files.dat"
 
 using namespace std;
 
@@ -31,8 +33,8 @@ int main(int argc, char *argv[])
   //(to give it "enough" data, files are processed multiple times :)
   for(int i = 0; i < 10; i++)
   {
-    // fq.filenames.push_back("Lab_4\\modest-proposal.txt");
-    // fq.filenames.push_back("Lab_4\\flatland.txt");
+    // fq.filenames.push_back("modest-proposal.txt");
+    // fq.filenames.push_back("flatland.txt");
     read_file(INPUT_FILE, &fq);
   }
 
