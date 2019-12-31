@@ -45,6 +45,8 @@ namespace NEU
         bool push(T item);
 
         //pop item from front of the queue but not return
+        bool pop(T& item);
+
         bool pop();
 
         //get item from front but not remove
@@ -65,14 +67,7 @@ namespace NEU
         myQueue<T> & operator= (const myQueue<T> & rhs);
 
         ///////////NONMEMBER//////////////
-        friend ostream & operator<< (ostream& out, myQueue const & queue) {
-            queue_node * temp = queue.head;
-            while(temp) {
-                out << temp->data << " ";
-                temp = temp->next;
-            }
-            return out;
-        }
+        friend ostream & operator<< (ostream& out, myQueue const & queue) { queue_node * temp = queue.head; while(temp) {out << temp->data << " ";temp = temp->next;} return out; }
 
     private:
         //////////NODE_CLASS/////////////
@@ -184,6 +179,18 @@ namespace NEU
     NEU::myQueue<T> & NEU::myQueue<T>::operator= (const NEU::myQueue<T> & rhs) {
         myQueue<T> new_queue(rhs);
         return (*this);
+    }
+
+    template<typename T>
+    bool myQueue<T>::pop(T& item) {
+        queue_node * ori_head = head;
+        if(head == 0)
+            return false;
+        head = head->next;
+        item = ori_head->data;
+        delete ori_head;
+        count--;
+        return true;
     }
 }
 #endif
