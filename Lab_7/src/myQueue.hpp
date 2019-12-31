@@ -72,12 +72,12 @@ namespace NEU
     private:
         //////////NODE_CLASS/////////////
         struct queue_node {
+            queue_node * prev = nullptr;
             T data;
-            queue_node * next;
-            queue_node * prev;
+            queue_node * next = nullptr;
 
             queue_node(queue_node* p_prev_node, const T& new_data, queue_node* p_next_node)
-                : data(new_data), next(p_next_node), prev(p_prev_node) {}
+                : prev(p_prev_node), data(new_data), next(p_next_node) {}
         };
         queue_node * head;
         queue_node * tail;
@@ -99,70 +99,70 @@ namespace NEU
         int mark = 1;
         queue_node * prev = nullptr;
         while(mark <= count) {
-            auto* new_node = new queue_node(prev, data_ptr->data, nullptr);
-            if(new_node->prev == nullptr) {
+            auto* new_node = new queue_node(prev, data_ptr->data, nullptr); // use new to allocate new space for queue_node.
+            if(new_node->prev == nullptr) { // if queue is empty, head and tail is the new_node
                 head = new_node;
                 tail = new_node;
             } else {
-                new_node->prev->next = new_node;
+                new_node->prev->next = new_node; // previous node link new_node
             }
-            prev = new_node;
+            prev = new_node; // link new_node to previous node
 
-            if(data_ptr->next == nullptr)
+            if(data_ptr->next == nullptr) // if reach the queue's tail then update current tail
                 tail = new_node;
 
-            data_ptr = data_ptr->next;
-            mark++;
+            data_ptr = data_ptr->next; // point to next node
+            mark++; // update mark in order to prevent error
         }
     }
 
     template<typename T>
-    NEU::myQueue<T>::~myQueue() { clear(); }
+    NEU::myQueue<T>::~myQueue() { clear(); } // use clear as destructor
 
     template<typename T>
     bool NEU::myQueue<T>::push(const T item) {
         if(item == 0)
             return false;
-        auto * new_node = new queue_node(tail, item, nullptr);
-        if(count == 0) {
+        auto * new_node = new queue_node(tail, item, nullptr); // new a new_node and allocate a new space
+        if(count == 0) { // in case of queue is empty
             head = new_node;
             tail = new_node;
         }
-        tail->next = new_node;
+        tail->next = new_node; // update tail to new tail
         tail = new_node;
-        count++;
+        count++; // update count -> size()
         return true;
     }
 
     template<typename T>
     bool NEU::myQueue<T>::pop() {
-        queue_node * ori_head = head;
+        queue_node * ori_head = head; // point to original head pointer for future use
         if(head == 0)
             return false;
-        head = head->next;
-        delete ori_head;
-        count--;
+        head = head->next; // update head pointer
+        delete ori_head; // free space of original head
+        count--; // decrease size()
         return true;
     }
 
     template<typename T>
     T NEU::myQueue<T>::peek() const {
-        if(size() != 0)
+        if(size() != 0) // if not empty
             return (head->data);
         else {
-            throw no_such_element_exception("No Element in queue");
+            throw no_such_element_exception("No Element in queue"); // throw a custom exception to main to handle
         }
     }
 
     template<typename T>
     void NEU::myQueue<T>::clear() {
-        tail = nullptr;
+        tail = nullptr; // initialize tail
         while (head) {
-            queue_node * head_of_queue = head;
+            queue_node * queue_ptr = head;
             head = head->next;
-            delete head_of_queue;
+            delete queue_ptr; // delete the current pointing space
         }
-        count = 0;
+        count = 0; // initialize size
     }
 
     template<typename T>
@@ -177,7 +177,7 @@ namespace NEU
 
     template<typename T>
     NEU::myQueue<T> & NEU::myQueue<T>::operator= (const NEU::myQueue<T> & rhs) {
-        myQueue<T> new_queue(rhs);
+        this = myQueue(rhs);
         return (*this);
     }
 

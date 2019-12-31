@@ -4,12 +4,12 @@
 
 using std::cout;
 using std::endl;
-//using std::string;
+using std::string;
 using namespace NEU;
 
-//string bool_to_string(bool value) {
-//    return value == 0 ? "false" : "true";
-//}
+string bool_to_string(bool value) {
+    return value == 0 ? "false" : "true";
+}
 
 int count = 0;
 #define MAX_SUCCESS 8
@@ -99,7 +99,12 @@ int main(int argc, char ** args) {
 
         bool mark2 = true;
         bool temp = true;
-        while(temp){
+
+        myQueue<int>* ptr1 = &new_queue;
+        myQueue<int>* ptr2 = &copy_queue;
+        cout << "Is the queue using = to copy the same as original one? -> " << bool_to_string((ptr1 == ptr2)) << endl;
+
+        while(temp) {
             mark2 = (new_queue.peek() == copy_queue.peek());
             temp = (new_queue.pop() && copy_queue.pop());
             try {new_queue.peek(); copy_queue.peek();} catch (no_such_element_exception& e) {break;}
